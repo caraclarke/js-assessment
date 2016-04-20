@@ -49,11 +49,13 @@ exports.arraysAnswers = {
   },
 
   prepend : function(arr, item) {
-
+    arr.unshift(item);
+    return arr;
   },
 
   curtail : function(arr) {
-
+    arr.shift();
+    return arr;
   },
 
   concat : function(arr1, arr2) {
