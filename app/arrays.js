@@ -80,14 +80,34 @@ exports.arraysAnswers = {
   },
 
   duplicates : function(arr) {
-
+    var dup = [];
+    
+    for (var i = 0; i < arr.length; i++) {
+      if (dup.indexOf(arr[i]) === -1 && arr.indexOf(arr[i], i+1) !== -1) {
+        dup.push(arr[i]);
+      }
+    }
+    
+    return dup;
   },
 
   square : function(arr) {
+    var squared = [];
 
+    for (var i = 0; i < arr.length; i++) {
+      squared.push(arr[i] * arr[i]);
+    }
+    return squared;
   },
 
   findAllOccurrences : function(arr, target) {
+    var indexShown = [];
 
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === target) {
+        indexShown.push(i);
+      }
+    }
+    return indexShown;
   }
 };
