@@ -69,7 +69,14 @@ exports.arraysAnswers = {
   },
 
   count : function(arr, item) {
-
+    var itemCount = 0;
+    
+    for (var i=0; i < arr.length; i++) {
+      if (arr[i] == item) {
+        itemCount++;
+      }
+    }
+    return itemCount;
   },
 
   duplicates : function(arr) {
