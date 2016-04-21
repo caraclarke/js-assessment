@@ -32,22 +32,53 @@ exports.functionsAnswers = {
   },
 
   partial : function(fn, str1, str2) {
-
+    return function(str3) {
+      return fn.call(null, str1, str2, str3);
+    };
   },
 
   useArguments : function() {
+    var sum = 0;
+    
+    for (var i = 0; i < arguments.length; i++) {
+      sum += arguments[i];
+    }
 
+    return sum;
   },
 
   callIt : function(fn) {
-
+    var args = Array.prototype.slice.call(arguments, 1, arguments.length);
+    fn.apply(null, args);
   },
 
   partialUsingArguments : function(fn) {
-
+    var args = Array.prototype.slice.call(arguments, 1, arguments.length);
+    return function() {
+      var moreArgs = args.concat(Array.prototype.slice.call(arguments));
+      return fn.apply(null, moreArgs);
+    };
   },
 
   curryIt : function(fn) {
+    function applyArguments(fn, arguments) {
+      return fn.apply(null, arguments);
+    }
 
+    function getArgumentAccumulator(accumulatedArguments, expectedArgumentsCount) {
+      return function (currentArgument) {
+        accumulatedArguments.push(currentArgument);
+
+        var allArgumentsProvided = accumulatedArguments.length === expectedArgumentsCount;
+
+        if (allArgumentsProvided) {
+          return applyArguments(fn, accumulatedArguments);
+        } else {
+          return getArgumentAccumulator(accumulatedArguments, expectedArgumentsCount);
+        }
+      };
+    }
+
+    return getArgumentAccumulator([], fn.length);
   }
 };

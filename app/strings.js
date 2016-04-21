@@ -2,23 +2,12 @@ exports = (typeof window === 'undefined') ? global : window;
 
 exports.stringsAnswers = {
   reduceString: function(str, amount) {
-    var output = '';
-    var characterCount = {};
+    var matches;
     
-      for (var i = 0; i < str.length; i++) {
-        
-        if (typeof characterCount[str[i]] === 'undefined') {
-           characterCount[str[i]] = 1;
-             }  else {
-           characterCount[str[i]] = characterCount[str[i]] + 1;
-         }
-         
-         if (characterCount[str[i]] <= amount) {
-           output += str[i];
-         }
-      }
-    
-    return output;
+    while (matches = /(\w)\1{2,}/g.exec(str)) {
+      str = str.replace(matches[0], matches[0].substr(0, amount));
+    }
+    return str;
   },
   wordWrap: function(str, cols) {
       var words = str.split(' ');
