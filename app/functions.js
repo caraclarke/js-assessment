@@ -16,7 +16,19 @@ exports.functionsAnswers = {
   },
 
   makeClosures : function(arr, fn) {
+    var returnArr = [];
 
+    var makeFn = function(val) {
+      return function() {
+        return fn(val);
+      };
+    };
+
+    for (var i = 0; i < arr.length; i++) {
+      returnArr.push(makeFn(arr[i]));
+    }
+
+    return returnArr;
   },
 
   partial : function(fn, str1, str2) {
